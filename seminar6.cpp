@@ -24,13 +24,6 @@ public:
 			this->nrCuvPerPag[index] = nrCuvPerPag[index];
 		}
 	}
-private:
-	char* titlu;
-	string autor;
-	int nrPagini;
-	double pret;
-	bool electronica;
-	int* nrCuvPerPag;
 
 	Carte(char* titlu, string autor, int nrPagini, double pret, bool electronica, int* nrCuvPerPag) {
 
@@ -84,6 +77,14 @@ private:
 	{
 		return pret;
 	}
+
+private:
+	char* titlu;
+	string autor;
+	int nrPagini;
+	double pret;
+	bool electronica;
+	int* nrCuvPerPag;
 };
 
 
