@@ -12,6 +12,14 @@ enum finantare
 
 class Carte
 {
+
+private:
+	char* titlu;
+	string autor;
+	int nrPagini;
+	double pret;
+	bool electronica;
+	int* nrCuvPerPag;
 public:
 	void set_nrCuvPerPag(int* nrCuvPerPag, int nrPagini)
 	{
@@ -25,14 +33,10 @@ public:
 		}
 	}
 
-	Carte(char* titlu, string autor, int nrPagini, double pret, bool electronica, int* nrCuvPerPag) {
+	Carte(char* titlu, string autor, int nrPagini, double pret, bool electronica, int* nrCuvPerPag) : autor(autor), nrPagini(nrPagini), pret(pret), electronica(electronica) {
 
 		this->titlu = new char[strlen(titlu) + 1];
 		strcpy_s(this->titlu, strlen(titlu) + 1, titlu);
-		this->autor = autor;
-		this->nrPagini = nrPagini;
-		this->pret = pret;
-		this->electronica = electronica;
 		this->nrCuvPerPag = new int[nrPagini];
 		for (int index = 0; index < nrPagini; index++)
 		{
@@ -77,14 +81,6 @@ public:
 	{
 		return pret;
 	}
-
-private:
-	char* titlu;
-	string autor;
-	int nrPagini;
-	double pret;
-	bool electronica;
-	int* nrCuvPerPag;
 };
 
 
