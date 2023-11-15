@@ -10,9 +10,8 @@ class Masina
 
 public:
 
-	Masina(string marca, char* model, string nrInmatriculare) : marca(marca)
+	Masina(string marca, char* model, string nrInmatriculare) : marca(marca), nrInmatriculare(nrInmatriculare)
 	{
-		this->nrInmatriculare = nrInmatriculare;
 		this->model = new char[strlen(model) + 1];
 		strcpy_s(this->model, strlen(model) + 1, model);
 		incrementCar();
@@ -62,7 +61,7 @@ public:
 
 	~Masina()
 	{
-		delete this->model;
+		delete[] this->model;
 	}
 };
 
