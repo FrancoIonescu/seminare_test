@@ -57,8 +57,8 @@ public:
 
 	~Carte()
 	{
-		delete this->titlu;
-		delete this->nrCuvPerPag;
+		delete[] this->titlu;
+		delete[] this->nrCuvPerPag;
 	}
 
 	char* getTitlu(char* titlu)
