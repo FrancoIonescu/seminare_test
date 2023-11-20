@@ -1,0 +1,251 @@
+UTILIZAREA FUNCTIILOR PREDEFINITE IN INTEROGARI 
+•	Funcţii de tip single-row (sau scalare). O funcţie single-row întoarce un singur rezultat pentru fiecare rând al tabelei interogate sau view 
+•	Funcţii de grup (sau agregate). O funcţie de grup întoarce un singur rezultat pentru un grup de rânduri interogate. Funcţiile de grup pot aparea în clauza HAVING. 
+
+
+FUNCTII SINGLE-ROW
+
+Funcţii de tip caracter 
+SINTAXA	DESCRIERE
+UPPER(S)/LOWER(S)/INITCAP(S)	forteaza caracterele alfa care sunt scrise cu litere mari, mici sau mixte in caractere scrise cu litere mici/mari/mixte
+CONCAT(S1,S2)	concateneaza doua stringuri
+LPAD(S1,N,S2)/RPAD(S1,N,S2)	adauga la coloana sau la valoarea literala spre stanga/dreapta pana la lungimea totala n
+LTRIM(S1,S2)	sterg caracterele specificate din sir
+LENGTH(S)	intoarce numarul de caractere(sau digiti) din coloana 
+SUBSTR(S,POZ,N)	intoarce un string de n caractere lungime dintr-o coloana sau valoare literala , incepand de la pozitia poz
+INSTR(S1,S2)	gaseste pozitia caracterului in care apare prima data 'string'
+REPLACE(S1,S2,S3)	inlocuieste un string
+
+ Functia LOWER() , UPPER(), INITCAP()
+
+1.	Sa se afiseze cu litere mari denumirea departamentelor din locatia 1700:
+
+SELECT id_departament, UPPER(denumire_departament)
+FROM departamente
+WHERE id_locatie=1700;
+
+2.	Sa se afiseze salariatii al caror nume incepe cu litera s
+
+SELECT id_angajat, nume FROM angajati WHERE nume like 's%';
+SELECT id_angajat, nume FROM angajati WHERE nume like upper('s%');
+
+3.	Sa se afiseze toti angajatii cu numele Smith utilizand functiile INITCAP, UPPER, LOWER
+
+SELECT id_angajat, nume FROM angajati WHERE INITCAP(nume) = 'Smith';
+SELECT id_angajat, nume FROM angajati WHERE UPPER(nume) = 'SMITH';
+SELECT id_angajat, nume FROM angajati WHERE LOWER(nume) = 'smith';
+
+Operatorul de concatenare (||)
+
+4.	Să se afişeze denumirea produsului şi stocul disponibil
+
+SELECT 'Produsul: ' || INITCAP(denumire_produs) || ' are pretul_minim ' || pret_min produs_pret_minim
+FROM produse;
+
+
+Funcţia CONCAT() , funcţia LENGTH() , funcţia SUBSTR()
+
+5.	Să se afişeze id_client, numele clientilor concatenată cu sexul acestora şi lungimea prenumelui, nivel_venituri numai pentru clientii cu venituri in categoria F: 110000 - 129999
+SELECT id_client, CONCAT(nume_client,sex), LENGTH(prenume_client), nivel_venituri FROM clienti 
+WHERE SUBSTR(nivel_venituri,1,1)='F';
+
+Funcţii de tip numeric 
+
+Sintaxa	Descriere
+ROUND(n,i)	rotunjeste un numar n la i zecimale
+TRUNC(n,i)	truncheaza un numar n la i zecimale
+MOD(n1,n2)	returneaza restul impartirii lui n1 la n2
+
+ Funcţia ROUND(), TRUNC()
+
+6.	Să se afişeze numărul 45,923 rotunjit la două zecimale si rotunjit la numar intreg.
+Sa se aplice si functia TRUNC.
+ SELECT ROUND(45.923,2), ROUND(45.923,0) FROM DUAL;
+SELECT TRUNC(45.923,2), TRUNC(45.923,0) FROM DUAL;
+
+
+
+
+
+
+
+
+
+Funcţii de tip dată calendaristică 
+SINTAXA	DESCRIERE
+SYSDATE	data curenta
+MONTH_BETWEEN(D1,D2) 	returneaza numarul de luni dintre doua date
+ADD_MONTHS(D,N) 	adauga un numar de luni
+NEXT_DAY(D,S) 	afiseaza urmatoarea zi 
+LAST_DAY(D)	afiseaza ultima zi a lunii date ca input
+ROUND(D,I)	rotunjeste o data calendaristica
+TRUNC(D,I)	truncheaza o data calendaristica
+ Funcţia SYSDATE 
+7.	Să se afişeze perioada de timp corespunzătoare (în săptămâni) între data încheierii comenzii şi data curentă:   SELECT id_comanda, (SYSDATE-data)/7 saptamani
+FROM comenzi;
+
+8.	Afisati data curenta (se selecteaza data din tabela DUAL):
+
+SELECT SYSDATE data_curenta FROM DUAL;
+
+Funcţiile MONTH_BETWEEN() , ADD_MONTHS() , NEXT_DAY() , LAST_DAY() 
+9.	Să se afişeze comenzile, data încheierii comenzilor, numărul de luni între data curentă şi data încheierii, următoarea zi de vineri după data încheierii, ultima zi din luna din care face parte data încheierii, precum şi data corespunzătoare după 2 luni de la data încheierii comenzii  SELECT id_comanda, data, round(MONTHS_BETWEEN(sysdate, data)) luni, NEXT_DAY(data, 'FRIDAY'), 
+LAST_DAY(data)
+ADD_MONTHS(data,2),
+FROM comenzi; 
+10.	Să se afişeze comenzile incheiate in luna trecuta:
+
+SELECT id_comanda, data FROM comenzi
+WHERE round(MONTHS_BETWEEN(sysdate, data))=1;
+
+SELECT id_comanda, data FROM comenzi
+WHERE round(MONTHS_BETWEEN(sysdate, data))=171;
+
+
+
+
+
+
+Funcţia ROUND(), TRUNC() in contextual functiilor de date calendaristice
+
+11.	Să se afişeze comenzile incheiate in 2000. Se va rotunji data încheierii la prima zi din luna corespunzătoare dacă data încheierii este în prima jumatate a lunii sau la prima zi din luna următoare:  SELECT id_comanda, data, ROUND(data, 'MONTH') FROM comenzi
+WHERE data LIKE '%-00%'; 
+ 
+
+
+Funcţii de conversie
+
+ 
+
+SINTAXA	DESCRIERE
+TO_NUMBER(S,FORMAT)	Converteste un string intr-un numar
+TO_CHAR(N,FORMAT)	Converteste un numar intr-un string
+TO_CHAR(D,FORMAT)	Converteste o data intr-un string
+TO_DATE(S,FORMAT)	Converteste un string intr-o data
+
+
+Funcţia TO_CHAR 
+12.	Să se afişeze comenzile si data încheierii in formatul initial si in format “MM/YY”  SELECT id_comanda, data, TO_CHAR(data, 'MM/YY') data_incheierii_comenzii FROM comenzi;
+
+
+Funcţia TO_DATE 
+13.	Să se afişeze comenzile incheiate intre 15 ianuarie 2017 si 15 decembrie 2018. 
+SELECT id_comanda, data 
+FROM comenzi
+WHERE data BETWEEN TO_DATE( 'January 15, 2017', 'Month dd,YYYY') AND TO_DATE( 'December 15, 2018', 'Month dd,YYYY'); 
+
+Funcţia TO_NUMBER - Converteste sirul de caractere intr-un numar cu un anumit format
+TO_NUMBER(char[, 'format_model'])
+
+Funcţia EXTRACT() 
+14.	Sa se afiseze comenzile incheiate in anii 2017 si 2018.
+
+SELECT id_comanda, data  FROM comenzi
+	WHERE EXTRACT(YEAR FROM data) IN (2017, 2018);
+
+15.	Sa se afiseze comenzile incheiate in lunile iulie si august.
+
+SELECT id_comanda, data  FROM comenzi
+	WHERE EXTRACT(MONTH FROM data) IN (7,8);
+
+Functiile NVL, NVL2, NULLIF, COALESCE
+
+SINTAXA	DESCRIERE
+NVL(E1,E2)	returneaza e2 daca e1 este null
+NVL2(S1,VAL_VAL1->IF_NOT_NULL,VAL2->IF_NULL)	returneaza val1 daca s1 nu e NULL; altfel, afiseaza val2 
+NULLIF(E1,E2)	returneaza NULL daca e1=e2, altfel returneaza e1
+COALESCE(E1,E2,E3,….)	Returneaza prima expresie non null
+
+
+NVL
+NVL(comision,0)
+NVL(data_angajarii,'01-JAN-97')
+NVL(id_functia,'Nu_exista_functia')
+
+16.	Sa se calculeze veniturile anuale ale angajatilor
+SELECT nume, salariul*12 + salariul*12*NVL(comision,0) venit_anual
+FROM angajati;
+
+NVL2
+17.	Sa se afiseze angajatii care au comision (1) si pe cei care nu au comision (0).
+SELECT nume, NVL2(comision, 1, 0)
+FROM angajati;
+
+NULLIF
+18.	Sa se afiseze lungimea numelui, lungimea prenumelui, daca acestea sunt egale sa se returneze nul ca rezultat, iar daca nu sunt egale se va returna lungimea numelui.
+SELECT nume, length(nume), prenume, length(prenume), NULLIF(length(nume), length(prenume)) rezultat
+FROM angajati;
+
+COALESCE
+19.	Sa se afiseze id-ul managerului fiecarui angajat, daca acesta este nul, se va afisa comisionul, iar daca si acesta este nul se va afisa -1.
+SELECT nume, prenume, coalesce(id_manager,comision,-1)
+FROM angajati;
+
+
+
+
+FUNCŢII DE GRUP
+
+AVG([DISTINCT|ALL] n) – calculeaza media aritmetica a valorilor
+COUNT(* | [DISTINCT|ALL] expr) – intoarce numarul total al valorilor
+MAX([DISTINCT|ALL] expr) – intoarce valoarea maxima MIN([DISTINCT|ALL] expr) – intoarce valoarea minima
+SUM([DISTINCT|ALL] n) – calculeaza suma valorilor
+
+Se utilizeaza urmatoarele clauze:
+GROUP BY – grupeaza datele in functie de un anumit camp;
+ORDER BY – ordoneaza datele in functie de un anumit camp;
+HAVING – permite stabilirea unor criterii de selectie asupra functiilor de grup;
+
+Exercitii:
+
+1.	Să se afişeze valoarea maximă, valoarea medie, valoarea minimă şi valoarea totală a produselor comandate. -> MAX, AVG, MIN, SUM
+SELECT MAX(PRET*CANTITATE),MIN(PRET*CANTITATE),ROUND(AVG(PRET*CANTITATE),2),SUM(PRET*CANTITATE)
+FROM RAND_COMENZI;
+
+2.	Să se afişeze data primei comenzi încheiate şi data celei mai vechi comenzi încheiate.
+
+SELECT ROUND(C.DATA) FROM COMENZI C ORDER BY C.DATA FETCH FIRST 1 ROW ONLY;
+
+SELECT ROUND(C.DATA) FROM COMENZI C ORDER BY C.DATA DESC FETCH FIRST 1 ROW ONLY;
+
+
+
+
+
+3.	Să se afişeze numărul de produse al căror pret_min>350.
+
+SELECT COUNT(ID_PRODUS) FROM PRODUSE WHERE PRET_MIN < 350;
+
+4.	Sa se afiseze numarul de salarii (distincte) din tabela angajati.
+	 107
+	 58
+
+	SELECT COUNT (DISTINCT SALARIUL) FROM ANGAJATI;	
+
+5.	Să se afişeze numărul total de comenzi incheiate.
+
+SELECT COUNT(ID_COMANDA) AS NUMARCOMENZI FROM COMENZI ;
+
+6.	Să se afişeze pe cate comenzi apare produsul cu codul 3124.
+
+SELECT COUNT(ID_COMANDA) FROM RAND_COMENZI WHERE ID_PRODUS = 3124;
+
+7.	Să se afişeze cantitatea medie vândută din fiecare produs. Sa se ordoneze după cantitate (se utilizeaza functia AVG() si clauza GROUP BY pentru gruparea datelor in functie de id_ul produsului, iar ordonarea se realizeaza cu ajutorul functiei ORDER BY).
+
+SELECT ID_PRODUS, ROUND(AVG(CANTITATE),2) FROM RAND_COMENZI GROUP BY ID_PRODUS ORDER BY (AVG(CANTITATE)); 
+
+8.	Să se afişeze produsele şi cantitatea medie vândută numei pentru acele produse a căror cantitate medie este mai mare de 25 (conditia se specifica in clauza HAVING si nu in clauza WHERE deoarece este utilizata functia de grup AVG si conditia este AVG(cantitate)>25).
+
+SELECT ID_PRODUS, ROUND(AVG(CANTITATE),2) FROM RAND_COMENZI GROUP BY (ID_PRODUS) HAVING AVG(CANTITATE) > 25;
+
+9.	Sa se calculeze valoarea totala a fiecarei comenzi si sa se sorteze descrescator in functie de valoare.
+
+SELECT ID_COMANDA SUM(CANTITATE*PRET) FROM RAND_COMENZI GROUP BY ID_COMANDA ORDER BY (SUM(PRET*CANTITATE)) DESC;
+
+10.	Sa se afiseze numai comenzile care au valoarea cuprinsa intre 1000 si 3000 (conditia va fi mentionata in clauza HAVING deoarece se utilizeaza functia de grup SUM).
+
+SELECT ID_COMANDA, SUM(PRET*CANTITATE)
+FROM RAND_COMENZI GROUP BY ID_COMANDA
+HAVING SUM(PRET*CANTITATE) BETWEEN 1000 AND 3000;
+
+
