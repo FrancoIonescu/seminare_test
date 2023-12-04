@@ -1,0 +1,27 @@
+
+-- EX 1
+SELECT P.ID_PRODUS, P.DENUMIRE_PRODUS,RC.PRET,RC.CANTITATE
+FROM PRODUSE P, RAND_COMENZI RC
+WHERE P.ID_PRODUS = RC.ID_PRODUS(+);
+
+-- EX 2
+
+SELECT a.id_angajat, a.nume, a.prenume, c.id_angajat, c.id_comanda
+FROM angajati a, comenzi c
+WHERE a.id_angajat = c.id_angajat(+);
+
+SELECT id_angajat,nume,id_functie,level from angajati
+connect by id_angajat = PRIOR -- de completat
+
+
+SELECT c.id_client, count(cm.id_comanda),
+CASE
+WHEN count(cm.id_comanda) = 1 then 0.1
+WHEN count(cm.id_comanda) = 2 then 0.15
+WHEN count(cm.id_comanda) >= 3 then 0.2
+ELSE 0 END discount
+FROM comenzi cm
+JOIN clienti c
+ON cm.id_client = c.id_client
+GROUP BY c.id_client;
+
