@@ -32,4 +32,25 @@ JOIN RAND_COMENZI RC ON RC.ID_COMANDA = CM.ID_COMANDA
 GROUP BY C.NUME_CLIENT
 HAVING COUNT(CM.ID_COMANDA) = 3
 
+4.	Să se vizualizeze informaţiile depre secvenţele utilizatorilor:
+
+SELECT * FROM USER_SEQUENCES;
+
+5.	Să se steargă secvenţa seq_nrcomanda:
+
+
+Create or replace view com19
+As select * from comenzi
+Where extract(year from data)=2019;
+
+SELECT * FROM com19
+DELETE FROM com19
+WHERE id_comanda = 2356;
+
+CREATE OR REPLACE VIEW ITISTI
+AS SELECT * FROM ANGAJATI
+WHERE ID_FUNCTIE = ’ID_PROG’
+WITH READ ONLY;
+SELECT * FROM ITISTI;
+
 
