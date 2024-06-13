@@ -1,0 +1,11 @@
+C:\Users\iones\Desktop\Seminar5TEST\bin\Debug\Seminar5TEST.exe.config
+C:\Users\iones\Desktop\Seminar5TEST\bin\Debug\Seminar5TEST.exe
+C:\Users\iones\Desktop\Seminar5TEST\bin\Debug\Seminar5TEST.pdb
+C:\Users\iones\Desktop\Seminar5TEST\obj\Debug\Seminar5TEST.csproj.AssemblyReference.cache
+C:\Users\iones\Desktop\Seminar5TEST\obj\Debug\Seminar5TEST.Form1.resources
+C:\Users\iones\Desktop\Seminar5TEST\obj\Debug\Seminar5TEST.Properties.Resources.resources
+C:\Users\iones\Desktop\Seminar5TEST\obj\Debug\Seminar5TEST.csproj.GenerateResource.cache
+C:\Users\iones\Desktop\Seminar5TEST\obj\Debug\Seminar5TEST.csproj.CoreCompileInputs.cache
+C:\Users\iones\Desktop\Seminar5TEST\obj\Debug\Seminar5TEST.exe
+C:\Users\iones\Desktop\Seminar5TEST\obj\Debug\Seminar5TEST.pdb
+C:\Users\iones\Desktop\Seminar5TEST\obj\Debug\Seminar5TEST.Form2.resources
