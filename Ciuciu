@@ -1,0 +1,29 @@
+### Bug Report: Player Unable to Stand After Crouching in Specific Area
+
+**Summary:**
+When the player crouches in a certain area, they are unable to use the crouch (CTRL) key to stand back up. The player remains stuck in the crouched position until they move to a set of stairs, which seems to reset the state.
+
+**Steps to Reproduce:**
+1. Navigate to [describe the area, e.g., "the warehouse basement" or "Area X"].
+2. Press the CTRL key to crouch.
+3. Try to press CTRL again to stand up.
+4. Observe that the player remains in the crouched position and cannot stand until they move to the stairs.
+
+**Expected Behavior:**
+The player should be able to press the crouch (CTRL) key again to stand up in any area.
+
+**Actual Behavior:**
+Once crouched in the affected area, the player is unable to stand by pressing CTRL. The player remains stuck in the crouched position until they move to a staircase, which resets the crouch status.
+
+**Reproduction Rate:**
+100% - Occurs every time the player crouches in this specific area.
+
+**System Information:**
+- **Game Version:** [Insert version number]
+- **Platform:** [PC, Console, etc.]
+- **OS:** [Windows 10, macOS, etc.]
+- **Input Method:** Keyboard (CTRL key)
+
+**Additional Notes:**
+- This bug appears to be location-specific, as the crouch function works correctly in other areas.
+- The stairs seem to reset the player's state, allowing them to stand again, suggesting an issue with collision or player state in this particular zone.
